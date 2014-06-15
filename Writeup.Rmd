@@ -31,6 +31,13 @@ pml.testing <- read.csv('./pml-testing.csv')
 
 ## Exploratory Analysis
 
+The training set consists of 19622 observation of 160 variables, one of which
+is the dependent variable as far as this study is concerned:
+
+```{r}
+dim(pml.training)
+```
+
 Inspection of the data set indicates that many of the 159 predictors are
 missing in most of the observations:
 
@@ -75,7 +82,7 @@ proc.pml.training <- pml.training[, include.cols]
 ```
 
 Performing this transformation results in a data set of 19622 of 53 variables
-(one of which is the dependent vsriable "classe").
+(one of which is the dependent variable "classe").
 
 ```{r}
 dim(proc.pml.training)

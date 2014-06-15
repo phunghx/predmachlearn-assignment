@@ -37,6 +37,19 @@ pml.testing <- read.csv("./pml-testing.csv")
 
 ## Exploratory Analysis
 
+The training set consists of 19622 observation of 160 variables, one of which
+is the dependent variable as far as this study is concerned:
+
+
+```r
+dim(pml.training)
+```
+
+```
+## [1] 19622   160
+```
+
+
 Inspection of the data set indicates that many of the 159 predictors are
 missing in most of the observations:
 
@@ -370,7 +383,7 @@ proc.pml.training <- pml.training[, include.cols]
 
 
 Performing this transformation results in a data set of 19622 of 53 variables
-(one of which is the dependent vsriable "classe").
+(one of which is the dependent variable "classe").
 
 
 ```r
@@ -400,7 +413,7 @@ pal <- colorRampPalette(c("blue", "white", "red"))(n = 199)
 heatmap(pred.corr, col = pal)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
 
 
 As can be seen from the heat map of the correlation matrix, most of predictors
@@ -548,23 +561,7 @@ forest seems like a sound choice.
 
 ```r
 library(randomForest)
-```
-
-```
-## randomForest 4.6-7
-## Type rfNews() to see new features/changes/bug fixes.
-```
-
-```r
 library(caret)
-```
-
-```
-## Loading required package: lattice
-## Loading required package: ggplot2
-```
-
-```r
 library(grDevices)
 ```
 
