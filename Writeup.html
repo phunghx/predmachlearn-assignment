@@ -212,7 +212,7 @@ pml.testing &lt;- read.csv(&quot;./pml-testing.csv&quot;)
 
 <h2>Exploratory Analysis</h2>
 
-<p>The training set consists of 19622 observation of 160 variables, one of which
+<p>The training set consists of 19622 observations of 160 variables, one of which
 is the dependent variable as far as this study is concerned:</p>
 
 <pre><code class="r">dim(pml.training)
@@ -517,10 +517,10 @@ missing in most of the observations:</p>
 
 <p>Choosing between discarding most of the observations but using more predictors
 and discarding some predictors to keep most of the observations is easy: more
-obsrvations are always a good thing, while additional variable may or may not
-be helpful.</p>
+observations are always a good thing, while additional variables may or may
+not be helpful.</p>
 
-<p>Additionally, it&#39;s worth noting that some of the variable in the data set do
+<p>Additionally, it&#39;s worth noting that some of the variables in the data set do
 not come from accelerometer measurements and record experimental setup or
 participants&#39; data. Treating those as potential confounders is a sane thing to
 do, so in addition to predictors with missing data, I also discarded the
@@ -544,8 +544,8 @@ include.cols &lt;- c(include.cols, &quot;classe&quot;)
 proc.pml.training &lt;- pml.training[, include.cols]
 </code></pre>
 
-<p>Performing this transformation results in a data set of 19622 of 53 variables
-(one of which is the dependent variable &ldquo;classe&rdquo;).</p>
+<p>Performing this transformation results in a data set of 19622 observations of
+53 variables (one of which is the dependent variable &ldquo;classe&rdquo;).</p>
 
 <pre><code class="r">dim(proc.pml.training)
 </code></pre>
@@ -613,7 +613,7 @@ this threshold.</p>
 <pre><code>## [1] -0.992 -0.992
 </code></pre>
 
-<p>Interesting, the roll_belt predictor participates in both of these pairwise
+<p>Interestingly, the roll_belt predictor participates in both of these pairwise
 interactions:</p>
 
 <pre><code class="r">pred.corr[&quot;roll_belt&quot;, &quot;total_accel_belt&quot;]
@@ -669,10 +669,10 @@ would be imprudent.</p></li>
 <li><p>There&#39;s no parameter selection involved. While random forest may overfit a
 given data set, just as any other machine learning algorithm, it has been
 shown by Breiman that classifier variance does not grow with the number of
-trees used (unlike with Adaboosted decision trees, for exmple). Therefore,
+trees used (unlike with Adaboosted decision trees, for example). Therefore,
 it&#39;s always better to use more trees, memory and computational power allowing.</p></li>
 <li><p>The algorithm allows for good in-training estimates of variable importance
-and generalization error [2], which largely eliminates the need for separate
+and generalization error [2], which largely eliminates the need for a separate
 validation stage, though obtaining a proper generalization error estimate on
 a testing set would still be prudent.</p></li>
 <li><p>The algorithm is generally robust to outliers and correlated covariates
@@ -686,8 +686,20 @@ with number of observations much exceeding the number of predictors, random
 forest seems like a sound choice.</p>
 
 <pre><code class="r">library(randomForest)
-library(caret)
-library(grDevices)
+</code></pre>
+
+<pre><code>## randomForest 4.6-7
+## Type rfNews() to see new features/changes/bug fixes.
+</code></pre>
+
+<pre><code class="r">library(caret)
+</code></pre>
+
+<pre><code>## Loading required package: lattice
+## Loading required package: ggplot2
+</code></pre>
+
+<pre><code class="r">library(grDevices)
 </code></pre>
 
 <p>I&#39;ll set a fixed RNG seed to ensure reproducibility of my results (the random
@@ -722,8 +734,8 @@ trees.</p>
 ## E    0    0    1    4 3602   0.0013862
 </code></pre>
 
-<p>The OOB error tends to exceed the generalization error [2], so the figure of
-0.29% seems very promising.</p>
+<p>The out-of-bag error tends to exceed the generalization error [2], so the
+figure of 0.29% seems very promising.</p>
 
 <pre><code class="r">model$confusion
 </code></pre>

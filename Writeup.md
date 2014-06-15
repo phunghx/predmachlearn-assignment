@@ -37,7 +37,7 @@ pml.testing <- read.csv("./pml-testing.csv")
 
 ## Exploratory Analysis
 
-The training set consists of 19622 observation of 160 variables, one of which
+The training set consists of 19622 observations of 160 variables, one of which
 is the dependent variable as far as this study is concerned:
 
 
@@ -352,10 +352,10 @@ head(pml.training)
 
 Choosing between discarding most of the observations but using more predictors
 and discarding some predictors to keep most of the observations is easy: more
-obsrvations are always a good thing, while additional variable may or may not
-be helpful.
+observations are always a good thing, while additional variables may or may
+not be helpful.
 
-Additionally, it's worth noting that some of the variable in the data set do
+Additionally, it's worth noting that some of the variables in the data set do
 not come from accelerometer measurements and record experimental setup or
 participants' data. Treating those as potential confounders is a sane thing to
 do, so in addition to predictors with missing data, I also discarded the
@@ -382,8 +382,8 @@ proc.pml.training <- pml.training[, include.cols]
 ```
 
 
-Performing this transformation results in a data set of 19622 of 53 variables
-(one of which is the dependent variable "classe").
+Performing this transformation results in a data set of 19622 observations of
+53 variables (one of which is the dependent variable "classe").
 
 
 ```r
@@ -474,7 +474,7 @@ pred.corr[which(pred.corr < -0.98)]
 ```
 
 
-Interesting, the roll_belt predictor participates in both of these pairwise
+Interestingly, the roll_belt predictor participates in both of these pairwise
 interactions:
 
 
@@ -541,11 +541,11 @@ would be imprudent.
 2. There's no parameter selection involved. While random forest may overfit a
 given data set, just as any other machine learning algorithm, it has been
 shown by Breiman that classifier variance does not grow with the number of
-trees used (unlike with Adaboosted decision trees, for exmple). Therefore,
+trees used (unlike with Adaboosted decision trees, for example). Therefore,
 it's always better to use more trees, memory and computational power allowing.
 
 3. The algorithm allows for good in-training estimates of variable importance
-and generalization error [2], which largely eliminates the need for separate
+and generalization error [2], which largely eliminates the need for a separate
 validation stage, though obtaining a proper generalization error estimate on
 a testing set would still be prudent.
 
@@ -561,7 +561,23 @@ forest seems like a sound choice.
 
 ```r
 library(randomForest)
+```
+
+```
+## randomForest 4.6-7
+## Type rfNews() to see new features/changes/bug fixes.
+```
+
+```r
 library(caret)
+```
+
+```
+## Loading required package: lattice
+## Loading required package: ggplot2
+```
+
+```r
 library(grDevices)
 ```
 
@@ -608,8 +624,8 @@ model
 ```
 
 
-The OOB error tends to exceed the generalization error [2], so the figure of
-0.29% seems very promising.
+The out-of-bag error tends to exceed the generalization error [2], so the
+figure of 0.29% seems very promising.
 
 
 ```r
