@@ -1,3 +1,5 @@
+# Provided by predmachlearn course staff.
+
 pml_write_files = function(x){
     n = length(x)
     for(i in 1:n){

@@ -2,3 +2,5 @@
 .Rhistory
 .*.swp
 *.csv
+*.txt
+cache/*
